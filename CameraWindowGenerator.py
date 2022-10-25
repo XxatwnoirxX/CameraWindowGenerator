@@ -24,12 +24,13 @@ camName = 'camName'             #カメラの名前
 camList = []                    #カメラのリスト
 camNameList = []                #カメラ名のリスト
 cambtnList = []                 #ボタン用リスト
-window_width = 230              #ウインドウサイズ
+window_width = 230              #GUIのウインドウサイズ
 window_height = 370
-button_height = 90              #ボタンサイズ
-textbox_width = window_width / 5              #テキストボックスの幅
-btnLayout = None                #ボタンのレイアウト
+button_height = 90                  #ボタンサイズ
+textbox_width = window_width / 5    #テキストボックスの幅
+btnLayout = None                    #ボタンのレイアウト
 winNameStrings = 'presp'
+maxWin = 3                          #最大ウインドウ数
 excludeFlag = False
 
 
@@ -114,11 +115,11 @@ def CWG_gui():
     with LayoutManager(cmds.rowColumnLayout( numberOfColumns=2, columnAttach=(1, 'right', 10), columnWidth=[(1, window_width - 30), (2, 20)] )):
         cmds.text("Exclude default camera")
         cmds.checkBox( label='', ed= True, onc="excludeFlag = True", ofc="excludeFlag = False")
-    """
+
     with LayoutManager(cmds.rowColumnLayout( numberOfColumns=2, columnAttach=(1, 'right', 10), columnWidth=[(1, window_width - textbox_width), (2, textbox_width)] )):
         cmds.text("Max Window")
-        cmds.textField(tx="3")
-    """
+        cmds.textField(tx="3", cc="maxWin = 3")
+
     cmds.button(l="AllCamOpen", w=window_width, h= 35, c=CWG_AllOpen, bgc=(0.5,0.5,1))   
     cmds.formLayout(form, edit=1)
     #GUIを表示
