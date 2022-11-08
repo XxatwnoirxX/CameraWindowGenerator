@@ -34,13 +34,14 @@ btnLayout = None                #ボタンのレイアウト
 winNameStrings = 'presp'        #ウィンドウ名
 excludeFlag = False             #初期カメラの除去フラグ
 maxWindow = 3                   #最大ウインドウ数
-viewModeFlag = 'points'         #ビューモードの指定フラグ
+ViewModeFlag = 'points'         #ビューモードの指定フラグ
 
 
 #カメラノードを検出
 def CWG_detecCam(self):
     global camList
     global camNameList
+    global ViewModeFlag
     camList = cmds.ls(ca=True)
     camNameList = cmds.listCameras()
     if camList is None:
@@ -73,13 +74,13 @@ def CWG_openWindow(self, camName):
     cmds.modelPanel()
     cmds.modelEditor(editor, edit=True, camera=camName )
     
-    if viewModeFlag == 'wireframe':
+    if ViewModeFlag == 'wireframe':
         cmds.modelEditor(editor, edit=True, displayAppearance='wireframe')
-    elif viewModeFlag == 'points':
+    elif ViewModeFlag == 'points':
         cmds.modelEditor(editor, edit=True, displayAppearance='points')
-    elif viewModeFlag == 'boundingBox':
+    elif ViewModeFlag == 'boundingBox':
         cmds.modelEditor(editor, edit=True, displayAppearance='boundingBox')
-    elif viewModeFlag == 'flatShaded':
+    elif ViewModeFlag == 'flatShaded':
         cmds.modelEditor(editor, edit=True, displayAppearance='flatShaded')
     else:
         print("viewModeFlag error!")
@@ -133,7 +134,7 @@ def CWG_addBtn(self, btnLayout, camList):
 #GUIの表示処理
 def CWG_gui():
     global maxWindow
-    global viewModeFlag
+    global ViewModeFlag
     #既にGUIが存在する時に古いほうを消す処理
     if cmds.window(windowName, ex=1):
         cmds.deleteUI(windowName)
@@ -143,16 +144,16 @@ def CWG_gui():
     with LayoutManager(cmds.formLayout()) as form:
         with LayoutManager(cmds.columnLayout()):
             cmds.scrollLayout(cr=True, w=window_width, h=window_height-button_height)
-            btnLayout  = cmds.columnLayout(adj=True, rowSpacing=3, w=window_width,h=window_height-button_height)
+            btnLayout  = cmds.columnLayout(adj=True, rowSpacing=3)
 
     with LayoutManager(cmds.columnLayout(adjustableColumn=True, rowSpacing=10)):
         with LayoutManager(cmds.frameLayout( label='ViewMode' )):
             with LayoutManager(cmds.columnLayout( w=window_width)):
                 rbc = cmds.radioCollection()
-                rb1 = cmds.radioButton( label='wireframe', onc="viewModeFlag = 'wireframe' ")
-                rb2 = cmds.radioButton( label='points', onc="viewModeFlag = 'points' ")
-                rb3 = cmds.radioButton( label='boundingBox',onc="viewModeFlag = 'boundingBox' ")
-                rb4 = cmds.radioButton( label='flatShaded',onc="viewModeFlag = 'flatShaded' ")
+                rb1 = cmds.radioButton( label='wireframe', onc="ViewModeFlag = 'wireframe' ")
+                rb2 = cmds.radioButton( label='points', onc="ViewModeFlag = 'points' ")
+                rb3 = cmds.radioButton( label='boundingBox',onc="ViewModeFlag = 'boundingBox' ")
+                rb4 = cmds.radioButton( label='flatShaded',onc="ViewModeFlag = 'flatShaded' ")
     cmds.radioCollection( rbc, edit=True, select=rb1 )
 
     with LayoutManager(cmds.columnLayout(adjustableColumn=True, rowSpacing=10)):
