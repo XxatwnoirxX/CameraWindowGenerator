@@ -7,6 +7,7 @@
 #   Since       : 2022/10
 #   Update      : 2022/10/25 : 細かい修正を行いました。
 #                 2022/11/04 : ビューモード、シェーダーモードの変更機能を追加しました。
+#                 2022/11/08 : バグの修正を行いました。
 #----------------------------------------------
 
 
@@ -129,7 +130,7 @@ def CWG_addBtn(self, btnLayout, camList):
         global winNameStrings
         winNameStrings = ''.join(winName)
         cambtnList.append(cmds.button(l=winName, c=functools.partial(CWG_Open , "self", winNameStrings), p=btnLayout))
-    
+
 
 #GUIの表示処理
 def CWG_gui():
